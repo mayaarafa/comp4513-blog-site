@@ -1,7 +1,14 @@
+using BlogSite.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Add DbContext for BlogContext to DI container
+builder.Services.AddDbContext<BlogContext>(options =>
+options.UseInMemoryDatabase("BlogDatabase"));
 
 var app = builder.Build();
 
