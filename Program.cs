@@ -12,6 +12,17 @@ options.UseInMemoryDatabase("BlogDatabase"));
 
 var app = builder.Build();
 
+if(app.Environment.IsDevelopment())
+{
+    // Seed the database with sample data
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<BlogContext>();
+        Dbinitializer.Initialize(context);
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
